@@ -23,15 +23,20 @@ jobs:
       pull-requests: write
     outputs:
       release_created: ${{ steps.release.outputs.release_created }}
+      upload_url: ${{ steps.release.outputs.upload_url }}
     steps:
-      - uses: google-github-actions/release-please-action@v3
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Run release please
+        uses: google-github-actions/release-please-action@v3.7.4
         id: release
         with:
-          release-type: helm
-          path: common
-          package-name: common-chart
-          changelog-types: '[{"type":"feat","section":"Features","hidden":false},{"type":"fix","section":"Bug Fixes","hidden":false},{"type":"perf","section":"Improvements","hidden":false}]' 
-  
+          token: ${{ secrets.GITHUB_TOKEN }}
+          release-type: node
+          package-name: vuetorrent
+          changelog-types:
+            '[{"type":"feat","section":"Features","hidden":false},{"type":"fix","section":"Bug Fixes","hidden":false},{"type":"perf","section":"Improvements","hidden":false}]'
+
   release:
     needs: setup-release
     if: ${{ needs.setup-release.outputs.release_created }}
@@ -41,7 +46,7 @@ jobs:
       contents: read
       packages: write
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v2
       - name: Install Helm
         uses: azure/setup-helm@v3
         with:
@@ -53,11 +58,3 @@ jobs:
         run: |
           helm package common
           helm push common.tgz oci://ghcr.io/${{ env.ORG }}/common-chart
-
-      - uses: marvinpinto/action-automatic-releases@latest
-        with:
-          repo_token: "${{ secrets.GH_TOKEN }}"
-          prerelease: false
-          files: |
-            README.md
-            *.tgz
