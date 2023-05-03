@@ -1,0 +1,30 @@
+image:
+  repository: nginx
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+controller:
+  enabled: true
+  replicas: 1
+  revisionHistoryLimit: 3
+
+env:
+  NODE_ENV: production
+
+service:
+  type: ClusterIP
+  ports:
+  - name: main
+    port: 80
+    protocol: HTTP
+
+serviceAccount:
+  create: true
+  rbac:
+  - apiGroups: [""]
+    resources: ["namespaces"]
+    verbs: ["list"]
+  - apiGroups: ["apps"]
+    resources: ["deployments", "statefulsets"]
+    verbs: ["list"]
