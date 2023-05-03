@@ -16,7 +16,7 @@ env:
   HELM_EXPERIMENTAL_OCI: 1
 
 jobs:
-  setup-please:
+  setup-release:
     runs-on: ubuntu-latest
     steps:
       - uses: google-github-actions/release-please-action@v3
