@@ -57,4 +57,4 @@ jobs:
       - name: Helm Package && Publish
         run: |
           helm package common
-          helm push common-*.tgz oci://${{ env.REGISTRY }}
+          helm push common-*.tgz oci://ghcr.io/wdaan/common-chart
