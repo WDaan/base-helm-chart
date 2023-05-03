@@ -18,6 +18,9 @@ env:
 jobs:
   setup-release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
       - uses: google-github-actions/release-please-action@v3
         with:
