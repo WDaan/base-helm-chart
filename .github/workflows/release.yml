@@ -1,0 +1,60 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+  packages: write
+
+env:
+  REGISTRY: ghcr.io/${{ github.repository }}
+  HELM_VERSION: 3.11.3
+  HELM_EXPERIMENTAL_OCI: 1
+
+jobs:
+  setup-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      upload_url: ${{ steps.release.outputs.upload_url }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Run release please
+        uses: google-github-actions/release-please-action@v3.7.4
+        id: release
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          release-type: node
+          package-name: vuetorrent
+          changelog-types:
+            '[{"type":"feat","section":"Features","hidden":false},{"type":"fix","section":"Bug Fixes","hidden":false},{"type":"perf","section":"Improvements","hidden":false}]'
+
+  release:
+    needs: setup-release
+    if: ${{ needs.setup-release.outputs.release_created }}
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: ${{ env.HELM_VERSION }}
+      - name: Helm Login
+        run: |
+          echo ${{ secrets.GITHUB_TOKEN }} | helm registry login ${{ env.REGISTRY }} --username ${{ github.actor }} --password-stdin
+      - name: Helm Package && Publish
+        run: |
+          helm package common
+          helm push common-*.tgz oci://${{ env.REGISTRY }}

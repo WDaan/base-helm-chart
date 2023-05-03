@@ -1,0 +1,39 @@
+image:
+  repository: nginx
+  tag: "latest"
+
+secret:
+  APPLICATION_ID: 'test'
+  APPLICATION_SECRET: 'test'
+
+service:
+  type: ClusterIP
+  ports:
+  - name: main
+    port: 80
+    targetPort: 3000
+    protocol: HTTP
+
+probes:
+  liveness:
+    enabled: true
+    path: /
+  readiness:
+    enabled: true
+    path: /
+
+ingress:
+  enabled: true
+  ingressClassName: alb
+  hosts:
+  - host: some-service.example.com
+    paths:
+    - path: /*
+      pathType: ImplementationSpecific
+  tls:
+  - secretName: some-secret
+    hosts:
+    - some-service.example.com
+
+imagePullSecrets:
+- name: accelerant-github-secret
