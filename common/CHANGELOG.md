@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/WDaan/common-chart/compare/v1.2.0...v1.2.1) (2023-05-04)
+
+
+### Bug Fixes
+
+* trigger ci ([3f8aea7](https://github.com/WDaan/common-chart/commit/3f8aea70dcc0b400ea5985bcba22bf45ea0b20fd))
+
 ## [1.2.0](https://github.com/WDaan/common-chart/compare/v1.1.0...v1.2.0) (2023-05-04)
 
 
