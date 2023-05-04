@@ -21,14 +21,34 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
     steps:
       - uses: actions/checkout@v3
-      - uses: release-drafter/release-drafter@v5
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run release please
+        uses: google-github-actions/release-please-action@v3.7.8
+        id: release
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          release-type: helm
+          package-name: common
+          path: common
+          changelog-types: |
+            [
+              {"type":"feat","section":"Features","hidden":false},
+              {"type":"fix","section":"Bug Fixes","hidden":false},
+              {"type":"perf","section":"Improvements","hidden":false},
+              {"type":"chore","section":"Miscellaneous","hidden":false},
+              {"type":"ci","section":"CI/CD","hidden":false}
+            ]
+      - name: echo info
+        run: |
+          echo ${{ toJSON(steps.release.outputs.release_created) }}
+          echo ${{ toJSON(github.ref) }}
 
   release:
     needs: setup-release
+    if: ${{ needs.setup-release.outputs.release_created }}
     runs-on: ubuntu-latest
     permissions:
       actions: write
