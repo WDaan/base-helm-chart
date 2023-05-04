@@ -24,6 +24,7 @@ jobs:
     outputs:
       release_created: ${{ steps.release.outputs.release_created }}
     steps:
+      - uses: actions/checkout@v3
       - name: Run release please
         uses: google-github-actions/release-please-action@v3.7.8
         id: release
