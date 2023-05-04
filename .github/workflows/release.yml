@@ -25,7 +25,7 @@ jobs:
       release_created: ${{ steps.release.outputs.release_created }}
     steps:
       - name: Run release please
-        uses: google-github-actions/release-please-action@v3.7.4
+        uses: google-github-actions/release-please-action@v3.7.8
         id: release
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -33,6 +33,8 @@ jobs:
           package-name: common
           path: common
           changelog-types: '[{"type":"feat","section":"Features","hidden":false},{"type":"fix","section":"Bug Fixes","hidden":false},{"type":"perf","section":"Improvements","hidden":false}]'
+          extra-files: |
+            README.md
       - name: echo info
         run: |
           echo ${{ toJSON(steps.release.outputs.release_created) }}
