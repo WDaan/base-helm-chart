@@ -37,9 +37,9 @@ jobs:
           changelog-types: '[{"type":"feat","section":"Features","hidden":false},{"type":"fix","section":"Bug Fixes","hidden":false},{"type":"perf","section":"Improvements","hidden":false}]'
       - name: echo info
         run: |
-          echo {{ toJSON(steps.release.outputs) }}
-          echo {{ toJSON(github.event) }}
-          echo {{ toJSON(github.ref) }}
+          echo ${{ toJSON(steps.release.outputs) }}
+          echo ${{ toJSON(github.event) }}
+          echo ${{ toJSON(github.ref) }}
 
   release:
     needs: setup-release
