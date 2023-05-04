@@ -38,7 +38,6 @@ jobs:
       - name: echo info
         run: |
           echo ${{ toJSON(steps.release.outputs) }}
-          echo ${{ toJSON(github.event) }}
           echo ${{ toJSON(github.ref) }}
 
   release:
