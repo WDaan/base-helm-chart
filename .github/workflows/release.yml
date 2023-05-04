@@ -23,7 +23,6 @@ jobs:
       pull-requests: write
     outputs:
       release_created: ${{ steps.release.outputs.release_created }}
-      upload_url: ${{ steps.release.outputs.upload_url }}
     steps:
       - uses: actions/checkout@v3
       - name: Run release please
@@ -37,7 +36,7 @@ jobs:
           changelog-types: '[{"type":"feat","section":"Features","hidden":false},{"type":"fix","section":"Bug Fixes","hidden":false},{"type":"perf","section":"Improvements","hidden":false}]'
       - name: echo info
         run: |
-          echo ${{ toJSON(steps.release.outputs) }} || true
+          echo ${{ toJSON(steps.release.outputs.release_created) }}
           echo ${{ toJSON(github.ref) }}
 
   release:
