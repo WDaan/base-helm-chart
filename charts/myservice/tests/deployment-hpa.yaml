@@ -26,6 +26,6 @@ autoscaling:
   enabled: true
   targetCPUUtilizationPercentage: 80%
 
-pdb: 
+pdb:
   enabled: true
   maxUnavailable: 50%
