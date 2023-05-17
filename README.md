@@ -13,6 +13,8 @@ This Helm Chart is a base chart that includes helpers/templates. The main goal i
   - [PodDisruptionBudget](#poddisruptionbudget)
   - [Metrics](#metrics)
   - [SLO](#slo)
+- [Contributing](#contributing)
+- [Support](#support)
   
 
 # Getting Started
@@ -152,3 +154,16 @@ Objective is the percentage of requests that should succeed:
 - 0.999 => 99.9% of requests should succeed, so 1 out of 1000 is allowed fail
 
 Feel free to add any other custom SLO's if required.
+
+# Contributing
+
+I'll gladly accept help/pull requests & advice!
+
+# Support
+
+Open up an issue 😛
+
+but before you do that:
+
+- confirm you're using the latest version
+- confirm there is no other issue mentioning the same problem
