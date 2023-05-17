@@ -1,5 +1,10 @@
 <h1> Common Chart </h1>
 
+![stars](https://img.shields.io/github/stars/WDaan/common-chart) ![Forks](https://img.shields.io/github/forks/WDaan/common-chart)
+![Issues](https://img.shields.io/github/issues/WDaan/common-chart) ![Closed](https://img.shields.io/github/issues-closed/WDaan/common-chart)
+![Closed PR](https://img.shields.io/github/issues-pr-closed/WDaan/common-chart) ![Version](https://img.shields.io/github/v/release/wdaan/common-chart)
+![Test Status](https://img.shields.io/github/actions/workflow/status/wdaan/common-chart/release.yml) ![Downloads](https://img.shields.io/github/downloads/WDaan/common-chart/total)
+
 This Helm Chart is a base chart that includes helpers/templates. The main goal is to make it easier to build/maintain Helm Charts of micro-services deployed on k8s. 
 
 <h2> Contents </h2>
