@@ -1,0 +1,15 @@
+extends: default
+
+rules:
+  braces: false
+  comments-indentation: false
+  document-start: false
+  comments:
+    require-starting-space: false
+  indentation:
+    indent-sequences: false
+  line-length: false
+
+ignore: |
+  .github
+  .yamllint.yaml
