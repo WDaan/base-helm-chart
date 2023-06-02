@@ -5,7 +5,7 @@ on:
     branches: [master, main]
 
 env:
-  KUBERNETES_VERSION: "1.25.6"
+  KUBERNETES_VERSION: "1.27.1"
 
 jobs:
   lint:
@@ -34,7 +34,7 @@ jobs:
         env:
           ADDITIONAL_SCHEMA_PATHS: |
             schemas/{{ .ResourceKind }}.json
-          CHARTS_DIRECTORY: "charts"
+          CHARTS_DIRECTORY: "examples"
           KUBECONFORM_STRICT: "true"
           HELM_UPDATE_DEPENDENCIES: "true"
           IGNORE_MISSING_SCHEMAS: "true"
