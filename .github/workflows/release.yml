@@ -31,8 +31,8 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           release-type: helm
-          package-name: common
-          path: common
+          package-name: base
+          path: base
           changelog-types: |
             [
               {"type":"feat","section":"🚀 Features","hidden":false},
@@ -63,7 +63,8 @@ jobs:
       - name: Helm Login
         run: |
           echo ${{ secrets.GITHUB_TOKEN }} | helm registry login ${{ env.REGISTRY }} --username ${{ github.actor }} --password-stdin
+      
       - name: Helm Package && Publish
         run: |
-          helm package common
-          helm push common-*.tgz oci://ghcr.io/wdaan/common-chart
+          helm package charts/base
+          helm push base-*.tgz oci://ghcr.io/wdaan/base-chart

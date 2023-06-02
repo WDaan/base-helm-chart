@@ -1,5 +1,0 @@
-apiVersion: v2
-name: common
-description: Common chart-building components and helpers
-type: library
-version: 1.0.0
