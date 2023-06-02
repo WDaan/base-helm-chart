@@ -1,6 +1,6 @@
 apiVersion: v2
 description: My Example Micro-Service
-name: myservice 
+name: myservice
 version: 1.0.0
 dependencies:
 - name: base
