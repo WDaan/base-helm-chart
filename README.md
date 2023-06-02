@@ -39,7 +39,7 @@ This Helm Chart is a base chart that includes helpers/templates. The main goal i
 4. Run `helm dep update`
 5. Create a `values.yaml`-file and configure as desired, see `charts/myservice/tests/deployment-full.yaml` or the other test files for example configurations.
 
-Take a look at the [example chart](/charts/myservice)
+Take a look at the [example chart](/examples/myservice)
 
 # Development
 

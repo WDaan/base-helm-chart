@@ -66,5 +66,5 @@ jobs:
       
       - name: Helm Package && Publish
         run: |
-          helm package base
+          helm package charts/base
           helm push base-*.tgz oci://ghcr.io/wdaan/base-chart

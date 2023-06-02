@@ -34,7 +34,7 @@ jobs:
         env:
           ADDITIONAL_SCHEMA_PATHS: |
             schemas/{{ .ResourceKind }}.json
-          CHARTS_DIRECTORY: "charts"
+          CHARTS_DIRECTORY: "examples"
           KUBECONFORM_STRICT: "true"
           HELM_UPDATE_DEPENDENCIES: "true"
           IGNORE_MISSING_SCHEMAS: "true"
