@@ -24,7 +24,8 @@ service:
 
 autoscaling:
   enabled: true
-  targetCPUUtilizationPercentage: 80%
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 70
 
 pdb:
   enabled: true
