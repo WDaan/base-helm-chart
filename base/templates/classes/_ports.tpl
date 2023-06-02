@@ -1,4 +1,4 @@
-{{- define "common.classes.ports" -}}
+{{- define "base.classes.ports" -}}
 {{- range $_ := .Values.service.ports }}
 - name: {{ .name }}
   {{- if and .targetPort (kindIs "string" .targetPort) }}

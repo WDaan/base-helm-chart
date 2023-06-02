@@ -1,9 +1,9 @@
-<h1> Common Chart </h1>
+<h1> Base Chart </h1>
 
-![stars](https://img.shields.io/github/stars/WDaan/common-chart) ![Forks](https://img.shields.io/github/forks/WDaan/common-chart)
-![Issues](https://img.shields.io/github/issues/WDaan/common-chart) ![Closed](https://img.shields.io/github/issues-closed/WDaan/common-chart)
-![Closed PR](https://img.shields.io/github/issues-pr-closed/WDaan/common-chart) ![Version](https://img.shields.io/github/v/release/wdaan/common-chart)
-![Test Status](https://img.shields.io/github/actions/workflow/status/wdaan/common-chart/release.yml) ![Downloads](https://img.shields.io/github/downloads/WDaan/common-chart/total)
+![stars](https://img.shields.io/github/stars/WDaan/base-chart) ![Forks](https://img.shields.io/github/forks/WDaan/base-chart)
+![Issues](https://img.shields.io/github/issues/WDaan/base-chart) ![Closed](https://img.shields.io/github/issues-closed/WDaan/base-chart)
+![Closed PR](https://img.shields.io/github/issues-pr-closed/WDaan/base-chart) ![Version](https://img.shields.io/github/v/release/wdaan/base-chart)
+![Test Status](https://img.shields.io/github/actions/workflow/status/wdaan/base-chart/release.yml) ![Downloads](https://img.shields.io/github/downloads/WDaan/base-chart/total)
 
 This Helm Chart is a base chart that includes helpers/templates. The main goal is to make it easier to build/maintain Helm Charts of micro-services deployed on k8s. 
 
@@ -28,13 +28,13 @@ This Helm Chart is a base chart that includes helpers/templates. The main goal i
 2. Include this chart as a dependency
     ```yaml
     dependencies:
-      - name: common
+      - name: base
         version: ~>1.0.0
-        repository: oci://ghcr.io/wdaan/common-chart
+        repository: oci://ghcr.io/wdaan/base-chart
     ```
 3. Copy the following into `templates/manifest.yaml`
    ```
-   {{ include "common.all" . }}
+   {{ include "base.all" . }}
    ```
 4. Run `helm dep update`
 5. Create a `values.yaml`-file and configure as desired, see `charts/myservice/tests/deployment-full.yaml` or the other test files for example configurations.
@@ -51,7 +51,7 @@ Take a look at the [example chart](/charts/myservice)
 # Chart Testing
 
 The `charts/myservice/tests`-folder contains a couple of values files.
-All of these are different configurations are tested against the common chart on every PR.
+All of these are different configurations are tested against the base chart on every PR.
 
 # Included Features
 

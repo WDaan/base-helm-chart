@@ -1,5 +1,5 @@
-{{- define "common.classes.container" -}}
-- name: {{ (default (include "common.helpers.names.fullname" .) .Values.name) }}
+{{- define "base.classes.container" -}}
+- name: {{ (default (include "base.helpers.names.fullname" .) .Values.name) }}
   image: {{ printf "%s:%s" .Values.image.repository (default .Chart.Version .Values.image.tag) | quote }}
   imagePullPolicy: {{ (default "IfNotPresent" .Values.image.pullPolicy) }}
   {{- with .Values.command }}
@@ -38,7 +38,7 @@
 
   {{- with .Values.env }}
   env:
-    {{- get (fromYaml (include "common.classes.env_vars" $)) "env" | toYaml | nindent 4 -}}
+    {{- get (fromYaml (include "base.classes.env_vars" $)) "env" | toYaml | nindent 4 -}}
   {{- end }}
   {{- if or .Values.envFrom .Values.secret }}
   envFrom:
@@ -47,16 +47,16 @@
     {{- end }}
     {{- if .Values.secret }}
     - secretRef:
-        name: {{ include "common.helpers.names.fullname" . }}
+        name: {{ include "base.helpers.names.fullname" . }}
     {{- end }}
   {{- end }}
   ports:
-  {{- include "common.classes.ports" . | trim | nindent 4 }}
-  {{- with (include "common.classes.volumemounts" . | trim) }}
+  {{- include "base.classes.ports" . | trim | nindent 4 }}
+  {{- with (include "base.classes.volumemounts" . | trim) }}
   volumeMounts:
     {{- nindent 4 . }}
   {{- end }}
-  {{- include "common.classes.probes" . | trim | nindent 2 }}
+  {{- include "base.classes.probes" . | trim | nindent 2 }}
   {{- with .Values.resources }}
   resources:
     {{- toYaml . | nindent 4 }}

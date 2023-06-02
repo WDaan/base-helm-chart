@@ -1,5 +1,0 @@
-{
-    "yaml.schemas": {
-        "https://json.schemastore.org/yamllint.json": "file:///Users/daanwijns/Documents/Personal/common-chart/charts/myservice/tests/deployment-full.yaml"
-    }
-}

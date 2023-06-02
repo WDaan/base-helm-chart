@@ -1,4 +1,4 @@
-{{- define "common.ingress" }}
+{{- define "base.ingress" }}
 {{- if (.Values.ingress).enabled }}
   {{- $values := .Values.ingress -}}
   {{- if hasKey . "ObjectValues" -}}
@@ -12,11 +12,11 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include "common.helpers.names.fullname" . }}
-  {{- with (merge ($values.labels | default dict) (include "common.helpers.labels" $ | fromYaml)) }}
+  name: {{ include "base.helpers.names.fullname" . }}
+  {{- with (merge ($values.labels | default dict) (include "base.helpers.labels" $ | fromYaml)) }}
   labels: {{- toYaml . | nindent 4 }}
   {{- end }}
-  {{- with (merge ($values.annotations | default dict) (include "common.helpers.annotations" $ | fromYaml)) }}
+  {{- with (merge ($values.annotations | default dict) (include "base.helpers.annotations" $ | fromYaml)) }}
   annotations: {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
@@ -45,7 +45,7 @@ spec:
             pathType: {{ default "Prefix" .pathType }}
             backend:
               service:
-                name: {{ include "common.helpers.names.fullname" $ }}
+                name: {{ include "base.helpers.names.fullname" $ }}
                 port:
                   number: {{ $defaultService.port }}
           {{- end }}

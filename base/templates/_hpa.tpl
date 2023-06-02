@@ -1,7 +1,7 @@
-{{- define "common.hpa" -}}
+{{- define "base.hpa" -}}
   {{- if (.Values.autoscaling).enabled -}}
-    {{- $hpaName := include "common.helpers.names.fullname" . -}}
-    {{- $targetName := include "common.helpers.names.fullname" . }}
+    {{- $hpaName := include "base.helpers.names.fullname" . -}}
+    {{- $targetName := include "base.helpers.names.fullname" . }}
 
 {{ $minReplicas := default 2 .Values.autoscaling.minReplicas }}
 {{ if lt (int64 $minReplicas) 2 }} 
@@ -12,8 +12,8 @@ apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: {{ $hpaName }}
-  labels: {{- include "common.helpers.labels" $ | nindent 4 }}
-  annotations: {{- include "common.helpers.annotations" $ | nindent 4 }}
+  labels: {{- include "base.helpers.labels" $ | nindent 4 }}
+  annotations: {{- include "base.helpers.annotations" $ | nindent 4 }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1

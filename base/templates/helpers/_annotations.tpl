@@ -1,5 +1,5 @@
-{{- define "common.helpers.annotations" -}}
-app.kubernetes.io/name: {{ include "common.helpers.names.name" . }}
+{{- define "base.helpers.annotations" -}}
+app.kubernetes.io/name: {{ include "base.helpers.names.name" . }}
   {{- with .Values.annotations -}}
     {{- range $k, $v := . }}
       {{- $name := $k }}
@@ -10,14 +10,14 @@ app.kubernetes.io/name: {{ include "common.helpers.names.name" . }}
 {{- end -}}
 
 {{/* Determine the Pod annotations used in the controller */}}
-{{- define "common.classes.podAnnotations" -}}
+{{- define "base.classes.podAnnotations" -}}
   {{- if .Values.podAnnotations -}}
     {{- tpl (toYaml .Values.podAnnotations) . | nindent 0 -}}
   {{- end -}}
   {{- if (default false (.Values.configmap).enabled) -}}
-  {{- printf "checksum/config: %v" (include ("common.configmap") . | sha256sum) | nindent 0 -}}
+  {{- printf "checksum/config: %v" (include ("base.configmap") . | sha256sum) | nindent 0 -}}
   {{- end -}}
   {{- if .Values.secret -}}
-  {{- printf "checksum/secret: %v" (include ("common.secret") . | sha256sum) | nindent 0 -}}
+  {{- printf "checksum/secret: %v" (include ("base.secret") . | sha256sum) | nindent 0 -}}
   {{- end -}}
 {{- end -}}

@@ -3,6 +3,6 @@ description: My Example Micro-Service
 name: myservice
 version: 1.0.0
 dependencies:
-- name: common
+- name: base
   version: ~>1.0.0
-  repository: file://../../common
+  repository: file://../../base

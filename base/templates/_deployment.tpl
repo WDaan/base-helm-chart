@@ -1,11 +1,11 @@
-{{- define "common.deployment" -}}
+{{- define "base.deployment" -}}
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "common.helpers.names.fullname" . }}
-  labels: {{- include "common.helpers.labels" $ | nindent 4 }}
-  annotations: {{- include "common.helpers.annotations" $ | nindent 4 }}
+  name: {{ include "base.helpers.names.fullname" . }}
+  labels: {{- include "base.helpers.labels" $ | nindent 4 }}
+  annotations: {{- include "base.helpers.annotations" $ | nindent 4 }}
 spec:
   revisionHistoryLimit: {{ default 3 (.Values.general).revisionHistoryLimit }}
   {{- if not (.Values.autoscaling).enabled }}
@@ -18,14 +18,14 @@ spec:
       maxSurge: {{ default "25%" (.Values.rollingUpdate).surge }}
   selector:
     matchLabels:
-      {{- include "common.helpers.labels.selectorLabels" . | nindent 6 }}
+      {{- include "base.helpers.labels.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      annotations: {{- include "common.classes.podAnnotations" $ | nindent 8 }}
+      annotations: {{- include "base.classes.podAnnotations" $ | nindent 8 }}
       labels:
-        {{- include "common.helpers.labels.selectorLabels" . | nindent 8 }}
+        {{- include "base.helpers.labels.selectorLabels" . | nindent 8 }}
         {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
-    spec: {{- include "common.classes.pod" . | nindent 6 }}
+    spec: {{- include "base.classes.pod" . | nindent 6 }}
 {{- end }}

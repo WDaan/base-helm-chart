@@ -1,5 +1,5 @@
 {{/* Expand the name of the chart */}}
-{{- define "common.helpers.names.name" -}}
+{{- define "base.helpers.names.name" -}}
   {{- $globalNameOverride := "" -}}
   {{- if hasKey .Values "global" -}}
     {{- $globalNameOverride = (default $globalNameOverride .Values.global.nameOverride) -}}
@@ -12,8 +12,8 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "common.helpers.names.fullname" -}}
-  {{- $name := include "common.helpers.names.name" . -}}
+{{- define "base.helpers.names.fullname" -}}
+  {{- $name := include "base.helpers.names.name" . -}}
   {{- $globalFullNameOverride := "" -}}
   {{- if hasKey .Values "global" -}}
     {{- $globalFullNameOverride = (default $globalFullNameOverride .Values.global.fullnameOverride) -}}
@@ -31,14 +31,14 @@ If release name contains chart name it will be used as a full name.
 {{- end -}}
 
 {{/* Create chart name and version as used by the chart label */}}
-{{- define "common.helpers.names.chart" -}}
+{{- define "base.helpers.names.chart" -}}
   {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/* Create the name of the ServiceAccount to use */}}
-{{- define "common.helpers.names.serviceAccountName" -}}
+{{- define "base.helpers.names.serviceAccountName" -}}
   {{- if (.Values.serviceAccount).create -}}
-    {{- default (include "common.helpers.names.fullname" .) .Values.serviceAccount.name -}}
+    {{- default (include "base.helpers.names.fullname" .) .Values.serviceAccount.name -}}
   {{- else -}}
     {{- default "default" (.Values.serviceAccount).name -}}
   {{- end -}}

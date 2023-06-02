@@ -1,4 +1,4 @@
-{{- define "common.classes.volumemounts" -}}
+{{- define "base.classes.volumemounts" -}}
   {{- range $persistenceIndex, $persistenceItem := .Values.persistence }}
     {{- if $persistenceItem.enabled -}}
       {{- if kindIs "slice" $persistenceItem.subPath -}}
@@ -43,7 +43,7 @@
     {{- end -}}
   {{- end }}
 {{- if (default false (.Values.configmap).enabled) }}
-- name: {{ include "common.helpers.names.fullname" . }}-configmap
+- name: {{ include "base.helpers.names.fullname" . }}-configmap
   mountPath: {{ .Values.configmap.mountPath }}
 {{- end }}
 {{- end -}}

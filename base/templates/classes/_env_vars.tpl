@@ -1,4 +1,4 @@
-{{- define "common.classes.env_vars" -}}
+{{- define "base.classes.env_vars" -}}
   {{- $values := .Values.env -}}
   {{- if hasKey . "ObjectValues" -}}
     {{- with .ObjectValues.env -}}

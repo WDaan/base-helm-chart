@@ -1,7 +1,7 @@
-{{/* Common labels shared across objects */}}
-{{- define "common.helpers.labels" -}}
-helm.sh/chart: {{ include "common.helpers.names.chart" . }}
-{{ include "common.helpers.labels.selectorLabels" . }}
+{{/* base labels shared across objects */}}
+{{- define "base.helpers.labels" -}}
+helm.sh/chart: {{ include "base.helpers.names.chart" . }}
+{{ include "base.helpers.labels.selectorLabels" . }}
   {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
   {{- end }}
@@ -16,8 +16,8 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end -}}
 
 {{/* Selector labels shared across objects */}}
-{{- define "common.helpers.labels.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "common.helpers.names.name" . }}
+{{- define "base.helpers.labels.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "base.helpers.names.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 release: {{ .Release.Name }}
 {{- end -}}

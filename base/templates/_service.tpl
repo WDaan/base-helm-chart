@@ -1,19 +1,19 @@
-{{- define "common.service" }}
+{{- define "base.service" }}
 {{ $svcType := .Values.service.type }}
-{{ $port := include "common.helpers.primary_port" . }}
+{{ $port := include "base.helpers.primary_port" . }}
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "common.helpers.names.fullname" $ }}
-  labels: {{- include "common.helpers.labels" $ | nindent 4 }}
+  name: {{ include "base.helpers.names.fullname" $ }}
+  labels: {{- include "base.helpers.labels" $ | nindent 4 }}
   annotations:
   {{- if (.Values.metrics).useAnnotations }}
     prometheus.io/scrape: "true"
     prometheus.io/path: {{ (default "/metrics" .Values.metrics.path) }}
     prometheus.io/port: {{ (default $port .Values.metrics.port) | quote }}
   {{- end -}}
-  {{- with include "common.helpers.annotations" $ | fromYaml -}}
+  {{- with include "base.helpers.annotations" $ | fromYaml -}}
     {{ toYaml . | nindent 4 }}
   {{- end }}
 spec:
@@ -77,5 +77,5 @@ spec:
     {{ end }}
   {{- end }}
   selector:
-    {{- include "common.helpers.labels.selectorLabels" . | nindent 4 }}
+    {{- include "base.helpers.labels.selectorLabels" . | nindent 4 }}
 {{- end }}

@@ -1,16 +1,16 @@
-{{- define "common.serviceMonitor" -}}
+{{- define "base.serviceMonitor" -}}
 {{- if ((.Values.metrics).serviceMonitor).enabled }}
-{{ $port := include "common.helpers.primary_port_name" . }}
+{{ $port := include "base.helpers.primary_port_name" . }}
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: {{ template "common.helpers.names.fullname" . }}
+  name: {{ template "base.helpers.names.fullname" . }}
   {{- with .Values.metrics.namespace }}
   namespace: {{ . }}
   {{- end }}
-  labels: {{- include "common.helpers.labels" . | nindent 4 }}
-  annotations: {{- include "common.helpers.annotations" . | nindent 4 }}
+  labels: {{- include "base.helpers.labels" . | nindent 4 }}
+  annotations: {{- include "base.helpers.annotations" . | nindent 4 }}
 spec:
   endpoints:
     - port: {{ default $port .Values.metrics.port | quote }}
@@ -38,6 +38,6 @@ spec:
       - {{ .Release.Namespace }}
   selector:
     matchLabels:
-      {{- include "common.helpers.labels" . | nindent 6 }}
+      {{- include "base.helpers.labels" . | nindent 6 }}
 {{- end }}
 {{- end }}

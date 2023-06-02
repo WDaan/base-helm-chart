@@ -1,1 +1,1 @@
-{{ include "common.all" . }}
+{{ include "base.all" . }}

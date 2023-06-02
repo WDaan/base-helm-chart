@@ -1,13 +1,13 @@
 {{/* Renders the frontendConfig objects required by the chart */}}
-{{- define "common.slo" -}}
+{{- define "base.slo" -}}
 {{- if ((.Values.metrics).slo).enabled }}
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
-  name: {{ include "common.helpers.names.fullname" . }}
-  labels: {{- include "common.helpers.labels" $ | nindent 4 }}
-  annotations: {{- include "common.helpers.annotations" $ | nindent 4 }}
+  name: {{ include "base.helpers.names.fullname" . }}
+  labels: {{- include "base.helpers.labels" $ | nindent 4 }}
+  annotations: {{- include "base.helpers.annotations" $ | nindent 4 }}
 spec:
   groups:
   {{- range $key, $slo := .Values.metrics.slo.slos }}

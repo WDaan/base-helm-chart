@@ -1,5 +1,5 @@
-{{- define "common.classes.probes" -}}
-{{ $primaryPort := include "common.helpers.primary_port" . }}
+{{- define "base.classes.probes" -}}
+{{ $primaryPort := include "base.helpers.primary_port" . }}
 {{- range $probeName, $probe := .Values.probes }}
   {{- if $probe.enabled -}}
     {{- "" | nindent 0 }}

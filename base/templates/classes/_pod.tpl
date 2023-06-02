@@ -1,6 +1,6 @@
-{{- define "common.classes.pod" -}}
+{{- define "base.classes.pod" -}}
 imagePullSecrets: {{- toYaml .Values.imagePullSecrets | nindent 2 }}
-serviceAccountName: {{ include "common.helpers.names.serviceAccountName" . }}
+serviceAccountName: {{ include "base.helpers.names.serviceAccountName" . }}
 automountServiceAccountToken: {{ .Values.automountServiceAccountToken }}
   {{- with .Values.podSecurityContext }}
 securityContext:
@@ -37,8 +37,8 @@ enableServiceLinks: {{ .Values.enableServiceLinks }}
 terminationGracePeriodSeconds: {{ $termination.gracePeriodSeconds | default 10 }}
   {{- end }}
 containers:
-  {{- include "common.classes.container" . | nindent 2 }}
-  {{- with (include "common.classes.volumes" . | trim) }}
+  {{- include "base.classes.container" . | nindent 2 }}
+  {{- with (include "base.classes.volumes" . | trim) }}
 volumes:
     {{- nindent 2 . }}
   {{- end }}
