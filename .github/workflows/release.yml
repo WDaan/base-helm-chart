@@ -2,8 +2,6 @@ name: Release
 
 on:
   push:
-    branches:
-      - main
 
 permissions:
   contents: write
@@ -16,46 +14,12 @@ env:
   HELM_EXPERIMENTAL_OCI: 1
 
 jobs:
-  setup-release:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-    outputs:
-      release_created: ${{ steps.release.outputs.release_created }}
-    steps:
-      - uses: actions/checkout@v3
-      - name: Run release please
-        uses: google-github-actions/release-please-action@v3.7.8
-        id: release
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          release-type: helm
-          package-name: base
-          path: base
-          changelog-types: |
-            [
-              {"type":"feat","section":"🚀 Features","hidden":false},
-              {"type":"fix","section":"🐛 Bug Fixes","hidden":false},
-              {"type":"perf","section":"🚲 Improvements","hidden":false},
-              {"type":"chore","section":"🛠️ Miscellaneous","hidden":false},
-              {"type":"ci","section":"👷‍♂️ CI/CD","hidden":false}
-            ]
-      - name: echo info
-        run: |
-          echo ${{ toJSON(steps.release.outputs.release_created) }}
-          echo ${{ toJSON(github.ref) }}
-
   release:
-    needs: setup-release
-    if: ${{ needs.setup-release.outputs.release_created }}
     runs-on: ubuntu-latest
-    permissions:
-      actions: write
-      contents: read
-      packages: write
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Install Helm
         uses: azure/setup-helm@v3
         with:
@@ -68,8 +32,15 @@ jobs:
         run: |
           helm package charts/base
           helm push base-*.tgz oci://ghcr.io/wdaan/base-chart
-      
+
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.5.0
+        with:
+          charts_dir: charts
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"

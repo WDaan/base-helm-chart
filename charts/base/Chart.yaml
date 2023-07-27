@@ -2,4 +2,4 @@ apiVersion: v2
 name: base
 description: Common chart-building components and helpers
 type: library
-version: 1.0.0
+version: 1.0.3
