@@ -1,8 +1,0 @@
-apiVersion: v2
-description: My Example Micro-Service
-name: myservice
-version: 1.0.0
-dependencies:
-- name: base
-  version: ~>1.0.0
-  repository: file://../../charts/base
