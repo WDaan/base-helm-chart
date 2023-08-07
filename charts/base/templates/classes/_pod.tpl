@@ -33,7 +33,7 @@ dnsConfig:
     {{- toYaml . | nindent 2 }}
   {{- end }}
 enableServiceLinks: {{ .Values.enableServiceLinks }}
-terminationGracePeriodSeconds: {{  default 10 (.Values.termination).gracePeriodSeconds }}
+terminationGracePeriodSeconds: {{  default 30 (.Values.termination).gracePeriodSeconds }}
 containers:
   {{- include "base.classes.container" . | nindent 2 }}
   {{- with (include "base.classes.volumes" . | trim) }}
