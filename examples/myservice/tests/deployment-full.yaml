@@ -56,6 +56,9 @@ probes:
     initialDelaySeconds: 15
     timeoutSeconds: 10
 
+termination:
+  gracePeriodSeconds: 60
+
 resources:
   limits:
     cpu: 100m
